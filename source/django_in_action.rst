@@ -23,13 +23,13 @@ Création du projet
 Installation
 ------------
 
-Installez Django en exécutant la commande suivante dans la console : ``pip install django==1.6.4``.
+Installez Django en exécutant la commande suivante dans la console : ``pip install django==1.8.2``.
 
 .. code-block:: sh
 
-   (workshops) ~$ pip install django==1.6.4
-   Downloading/unpacking django==1.6.4
-     Downloading Django-1.6.4-py2.py3-none-any.whl (6.7MB): 6.7MB downloaded
+   (workshops) ~$ pip install django==1.8.2
+   Downloading/unpacking django==1.8.2
+   Downloading Django-1.8.2-py2.py3-none-any.whl (6.2MB): 6.2MB downloaded
    Installing collected packages: django
    Successfully installed django
    Cleaning up...
@@ -111,35 +111,38 @@ Comme vous pouvez le voir, ``INSTALLED_APPS`` est tout simplement un tuple de no
 Base de données
 ---------------
 
-Le moment est maintenant venu d'utiliser le fichier ``manage.py`` pour créer la base de données de notre site. Pour ce faire, nous allons utiliser l'option ``syncdb``. Lancez donc la commande ``python manage.py syncdb`` depuis le répertoire du projet
+Le moment est maintenant venu d'utiliser le fichier ``manage.py`` pour créer la base de données de notre site. Pour ce faire, nous allons utiliser l'option ``migrate``. Lancez donc la commande ``python manage.py migrate`` depuis le répertoire du projet
 
 .. code-block:: sh
 
-   (workshops) ~$ cd carrots
-   (workshops) ~/carrots$ python manage.py syncdb
-
-    Creating tables ...
-    Creating table auth_permission
-    Creating table auth_group_permissions
-    Creating table auth_group
-    Creating table auth_user_groups
-    Creating table auth_user_user_permissions
-    Creating table auth_user
-    Creating table django_content_type
-    Creating table django_session
-    Creating table django_site
-    Creating table django_admin_log
-
-    You just installed Django's auth system, which means you don't have any superusers defined.
-    Would you like to create one now? (yes/no): yes
-    Username (leave blank to use 'alex'): admin
-    Email address: alex@example.com
+    (workshops) ~$ cd carrots
+    (workshops) ~/carrots$ python manage.py migrate
+    Operations to perform:
+      Synchronize unmigrated apps: staticfiles, messages
+      Apply all migrations: admin, contenttypes, auth, sessions
+    Synchronizing apps without migrations:
+      Creating tables...
+        Running deferred SQL...
+      Installing custom SQL...
+    Running migrations:
+      Rendering model states... DONE
+      Applying contenttypes.0001_initial... OK
+      Applying auth.0001_initial... OK
+      Applying admin.0001_initial... OK
+      Applying contenttypes.0002_remove_content_type_name... OK
+      Applying auth.0002_alter_permission_name_max_length... OK
+      Applying auth.0003_alter_user_email_max_length... OK
+      Applying auth.0004_alter_user_username_opts... OK
+      Applying auth.0005_alter_user_last_login_null... OK
+      Applying auth.0006_require_contenttypes_0002... OK
+      Applying sessions.0001_initial... OK
+    (workshops) ~/carrots$ python manage.py createsuperuser
+    Username (leave blank to use 'br'): admin
+    Email address: admin@admin.com
     Password:
     Password (again):
     Superuser created successfully.
-    Installing custom SQL ...
-    Installing indexes ...
-    Installed 0 object(s) from 0 fixture(s)
+
 
 Si tout se passe bien, Django vous demande alors de fournir quelques informations pour créer un compte administrateur pour l'application. Vous pouvez laisser le nom d'utilisateur qui vous est proposé et saisir n'importe quelle adresse email. Retenez bien ces informations, en particulier le nom d'utilisateur et le mot de passe ; elles vous seront nécessaires pour vous connecter à l'interface d'administration. Dans l'exemple décit ci-dessus, le nom d'utilisateur sera ``admin``.
 
@@ -153,7 +156,7 @@ Si vous voulez en apprendre davantage au sujet de ``manage.py``, vous pouvez ex�
 
 .. code-block:: sh
 
-    (workshops) ~/carrots$ python manage.py help syncdb
+    (workshops) ~/carrots$ python manage.py help migrate
 
 
 Interface d'administration
@@ -168,7 +171,7 @@ Nous pouvons maintenant lancer notre application. Démarrez le serveur en tapant
 
    0 errors found
    April 19, 2013 - 20:14:37
-   Django version 1.6.4, using settings 'carrots.settings'
+   Django version 1.8.2, using settings 'carrots.settings'
    Development server is running at http://127.0.0.1:8000/
    Quit the server with CTRL-BREAK.
 
@@ -233,7 +236,7 @@ Pour installer Django
 
 .. code-block:: sh
 
-   (workshops) ~$ pip install django==1.6.4
+   (workshops) ~$ pip install django==1.8.2
 
 Pour créer un projet Django
 
@@ -263,7 +266,13 @@ Pour créer ou mettre à jour la base de données, il faut lancer cette commande
 
 .. code-block:: sh
 
-   (workshops) ~/carrots$ python manage.py syncdb
+   (workshops) ~/carrots$ python manage.py migrate
+
+Pour créer un compte administrateur permettant d'accéder à l'interface d'administration
+
+.. code-block:: sh
+
+   (workshops) ~/carrots$ python manage.py createsuperuser
 
 Pour démarrer le serveur d'application
 

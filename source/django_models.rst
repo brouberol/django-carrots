@@ -27,25 +27,30 @@ Dans le fichier ``polls/models.py`` nous écrivons::
         votes = models.IntegerField(default=0)
 
 En ajoutant de nouveaux modèles, nous avons changé la disposition de la base de
-données. Nous devons appliquer la commande ``syncdb`` une nouvelle fois afin
-que les tables correspondantes aux nouveaux modèles apparaissent dans la base
-de données.
-
-.. warning::
-    Après avoir exécuté la commande ``syncdb``, vous ne pouvez pas ajouter de
-    nouveaux champs dans le modèle. Vous pouvez seulement ajouter de nouveaux
-    modèles. Il y a plusieurs façons d'éviter cela, mais... ceci est une autre
-    histoire.
+données. Nous devons appliquer la commande ``makemigrations`` afin de créer des
+fichiers de migration permettant d'ajouter les nouvelles tables correspondantes
+en base de données, ainsi que la commane ``migrate``, permettant d'exécuter les
+fichiers de migrations créés par la commande précédente.
 
 .. code-block:: sh
 
-   (workshops) ~/carrots$ python manage.py syncdb
-   Creating tables ...
-   Creating table polls_poll
-   Creating table polls_choice
-   Installing custom SQL ...
-   Installing indexes ...
-   Installed 0 object(s) from 0 fixture(s)
+    (workshops) ~/carrots$ python manage.py makemigrations
+    Migrations for 'polls':
+      0001_initial.py:
+        - Create model Choice
+        - Create model Poll
+        - Add field poll to choice
+    (workshops) ~/carrots$ python manage.py migrate
+    Operations to perform:
+      Synchronize unmigrated apps: staticfiles, messages
+      Apply all migrations: admin, contenttypes, polls, auth, sessions
+    Synchronizing apps without migrations:
+      Creating tables...
+        Running deferred SQL...
+      Installing custom SQL...
+    Running migrations:
+      Rendering model states... DONE
+      Applying polls.0001_initial... OK
 
 C'est tout ! Par contre, vous souhaitez probablement avoir la possibilité
 d'éditer les objets. La façon la plus simple de le faire est d'utiliser

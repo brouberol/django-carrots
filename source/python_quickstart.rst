@@ -50,7 +50,7 @@ Python est une super calculatrice:
 
 Faites bien attention lorsque vous entrez des nombres à virgules, utilisez des
 points comme séparateurs, et non pas des virgules. Les virgules nous seront
-utiles plus tard, pour définir des :ref:`tuple <imc-tuples>`, mais nous
+utiles plus tard, pour définir des :ref:`tuple <lien-tuples>`, mais nous
 y reviendrons.
 
 
@@ -84,7 +84,7 @@ Vous pouvez également ajouter (on dit également concaténer) deux chaînes l'u
 Ou elles peuvent être aussi multipliés par des nombres:
 
     >>> 'oui ' * 3
-    'oui oui oui'
+    'oui oui oui '
 
 Une chaîne de caractères doit toujours commencer et se terminer par le même
 caractère. Il peut s'agir d'un guillemet simple (``'``), ou d'un guillemet
@@ -99,7 +99,7 @@ rendre compte de ça lui-même).
 Afficher les chaînes de caractères
 ----------------------------------
 
-Mais comment afficher ces chaînes de caractères d'une manière lisible? Il est
+Mais, comment afficher ces chaînes de caractères d'une manière lisible ? Il est
 possible de le faire en utilisant la fonction :func:`print`.
 
 
@@ -114,7 +114,7 @@ espaces:
     Bonjour, mon nom est Camille
 
 La fonction :func:`print` peut être utilisée de différentes manières,
-puisqu'elle peut écrire à peu près n'importe quoi.  Pour l'instant, le seul
+puisqu'elle peut écrire à peu près n'importe quoi. Pour l'instant, le seul
 type de valeurs que nous connaissons sont les nombres:
 
     >>> print(1)
@@ -170,94 +170,112 @@ fichier ``visitingcard.py`` pour améliorer la lisibilité. Ici, nous
 avons séparé l'entête du message d'avec son contenu et d'avec sa fin.
 
 
-Calculateur d'IMC
-=================
+Envoyer du Morse grâce à Python
+===============================
 
-Essayons de créer un programme simple permettant de calculer son `IMC`
-(`Indice de Masse Corporelle`_).
+Essayons de créer un programme simple permettant d'envoyer des signaux en
+Morse.
 
-La formule de ce calcul est la suivante::
+En cas d'urgence et de panique liée à cet ordinateur, vous pouvez avoir besoin
+d'envoyer un signal de détresse.
 
-    IMC = (masse (kg)) / (taille (m)) au carré
+Le signal de détresse, SOS (Save Our Soul) est en effet le signal le plus connu
+pour communiquer sa situation critique par la lumière ou par le son.
+Il est utilisé par les bateaux et par les naufragé•e•s en situation de
+détresse.
+Nous allons pour notre part commencer à afficher des signaux morse depuis
+le terminal. En commencant par notre fameux signal de détresse SOS.
 
-Nous savons déjà faire une division, une puissance et afficher des
-nombres. Il ne nous reste plus qu`à créer un fichier ``imc.py`` et à
-essayer d'écrire le programme qui calcule l'IMC:
+Pour écrire un SOS en morse :
+
+S.O.S va se traduire en morse par (... --- ...) soit 3 signaux courts suivis de
+3 signaux longs.
+Le S est donc égal à "..." et le O à "---"
+
+Nous connaissons déjà la fonction :func:`print` (pour afficher des choses).
+Nous allons donc créer un '''programme''' qui stocke les deux lettres et leur
+équivalent en morse dans des '''variables'''.
+
+Pour commencer, créez un fichier ``morse.py`` puis écrivez à l'intérieur le
+programme suivant :
 
 .. testcode::
 
-    print("Votre IMC est :", 65.5 / (1.75 ** 2))
+    print("...---...")
 
 Lancez votre programme comme ceci::
 
-    $ python imc.py
+    $ python morse.py
 
 Vous obtenez:
 
 .. testoutput::
 
-    Votre IMC est : 21.387755102040817
+    ...---...
 
 Comme vous le voyez notre programme a besoin de quelques améliorations:
 
-1. Si quelqu'un d'autre souhaite utiliser le programme nous devons
-   modifier le fichier ``imc.py``.
-
-2. Pour une personne qui ne connait pas les tables d'IMC par cœur,
-   21.387755102 ne veut pas dire grand chose.
-
-3. Afficher autant de décimales n'est pas nécessaire. Les nombres en
-   entrée n'ayant que 3 chiffres significatifs.
+Si quelqu'un souhaite envoyer un autre message que "SOS", nous devons modifier
+le fichier ``morse.py``.
 
 Programmer c'est l'art de résoudre les problèmes, alors mettons nous au travail !
 Cela va nous donner l'occasion d'apprendre de nouvelles fonctionnalités de Python.
 
-.. _`Indice de Masse Corporelle`: http://fr.wikipedia.org/wiki/Indice_de_masse_corporelle
+Variables
+=========
 
-
-Alias
-=====
-
-Commençons par résoudre notre premier problème. Pour commencer nous
-aimerions bien rendre notre programme plus lisible, pour permettre au
-lecteur de savoir immédiatement quelle valeur correspond à la taille et quelle
-valeur correspond au poids.
+Pour commencer nous aimerions bien rendre notre programme plus lisible, pour
+permettre au lecteur de savoir immédiatement quel code morse correspond à
+quelle lettre (``...`` correspond à "S" et ``---`` correspond à "O").
 
 C'est pourquoi nous donnons des noms à ces valeurs:
 
 .. testcode::
 
-    poids = 65.5
-    taille = 1.75
-
-    imc = poids / taille ** 2
-    print("Votre IMC est :", imc)
+    s = "..."
+    o = "---"
+    print(s + o + s)
 
 Le résultat n'a pas changé:
 
 .. testoutput::
 
-    Votre IMC est : 21.387755102040817
+    ...---...
 
+.. note:: Ici on utilise l'opérateur ``+`` qui sert à concaténer (coller) deux
+    chaines de caractères entre elles. Tapez par exemple dans votre console
+    Python::
 
-Pour mieux comprendre le fonctionnement des alias, revenons à l'invite
-de commande Python et essayons d'en créer quelques-uns :
+        >>> "Bonjour" + " a tous et a toutes"
+        'Bonjour a tous et a toutes'
+
+Pour mieux comprendre le fonctionnement des variables, revenons à l'invité
+de commande (aussi nommée "console") Python et essayons d'en créer
+quelques-unes :
 
     >>> x = 42
     >>> PI = 3.1415
     >>> name = "Amelia"
-    >>> print("Things:", x, PI, name)
-    Things: 42 3.1415 Amelia
+    >>> print("Quelques valeurs:", x, PI, name)
+    Quelques valeurs: 42 3.1415 Amelia
 
-Une valeur peut être liée à plusieurs alias, elle peut donc avoir
-plusieurs noms :
+Une variable peut être vue comme une boite portant une étiquette :
+    * Elle contient quelque chose (on dit que la variable contient une
+        ``valeur``)
+    * Elle a un nom (comme l'inscription sur l'étiquette de la boite)
+
+Deux variables (ayant des noms différent) peuvent contenir la même valeur :
 
     >>> y = x
     >>> print(x, y)
     42 42
 
-On peut également modifier la valeur d'un alias. La nouvelle valeur
-n'a pas besoin d'être du même type que la précédente:
+Ici les deux variables ont pour noms ``y`` et ``x`` (se sont les étiquettes sur
+les boites) et elles contiennent la même valeur : ``42``
+
+On peut également modifier la valeur d'une variable (changer le contenu de la
+boite). La nouvelle valeur n'a pas besoin d'être du même type
+(nombre entier, nombre décimal, texte ...) que la précédente :
 
     >>> x = 13
     >>> print(x)
@@ -266,354 +284,364 @@ n'a pas besoin d'être du même type que la précédente:
     >>> print(x)
     Scarab
 
-Les alias sont indépendants les uns des autres. Si on modifie la
-valeur de x, la valeur de y reste la même:
+Les variables sont indépendantes les unes des autres. Si on modifie la
+valeur de x, la valeur de y reste la même :
 
     >>> print(y)
     42
 
-.. note:: Pour ceux qui connaissent d'autres langages de programmation
+Nous pouvons également mettre le résultat de calculs ou d'opérations dans des
+variables et utiliser ensuite ces variables comme alias de la valeur dans
+d'autres calculs.
 
-    Vous vous demandez sûrement pourquoi nous n'utilisons pas ici le
-    terme "variable". C'est simplement car en Python, les alias ne
-    fonctionnent pas de la même manière que les variables.
-    Dans la plupart des langages, l'opération ``y = x`` crée une copie
-    de ``x`` et la stocke dans la variable ``y``
+    >>> s = "..."
+    >>> o = "---"
+    >>> aidez_moi = s + o + s
+    >>> print(aidez_moi)
+    ...---...
 
-	En Python, rien n'est copié silencieusement. ``y`` devient
-	seulement un autre moyen de nommer la même valeur. Si on modifie
-	cette valeur, ``x`` et ``y`` seront tous les deux modifié et
-	afficheront la même chose.
+À noter qu'une fois que la valeur est calculée, elle n'est pas modifiée :
 
-	Dans notre exemple, nous n'avons pas modifié la valeur du nombre
-	``42``, mais nous avons modifié la valeur associée à ``x`` (en
-	particulier, les valeurs des nombres ne sont jamais modifiées, bien
-	qu'en 1897, la Chambre basse de l'état de l'Indiana ait accepté de
-	modifier la valeur de π à ``3``, décision rejetée par le Sénat).
-	C'est pourquoi, afficher la valeur de ``y`` avec ``print(y)``,
-	nous donne ``42``.
-
-
-Comme nous l'avons vu dans notre programme, nous pouvons également
-donner des noms aux résultats des calculs et utiliser ensuite ces noms
-comme alias de la valeur dans d'autres calculs.
-
-    >>> w = 65.5
-    >>> h = 175.0 / 100.0
-    >>> imc = w / h ** 2
-    >>> print(w, h, imc)
-    65.5 1.75 21.387755102040817
-
-À noter qu'une fois que la valeur est calculée, elle n'est pas modifiée:
-
-    >>> w = 64
-    >>> print(w, h, imc)
-    64 1.75 21.387755102040817
+    >>> s = "@"
+    >>> print(aidez_moi)
+    ...---...
 
 Sauf si on demande à Python de la recalculer :
 
-    >>> imc = w / h ** 2
-    >>> print(w, h, imc)
-    64 1.75 20.897959183673468
+    >>> aidez_moi = s + o + s
+    >>> print(aidez_moi)
+    @---@
 
 Il est grand temps d'ajouter quelques commentaires à notre programme
-afin que les lecteurs-trices (dont nous faisons partie) se souviennent que le
-poids est en kg et la taille en m.
+afin de faciliter la compréhension pour les lecteurs-trices (dont nous faisons
+parti).
 
 Les commentaires nous permettent de rajouter du texte dans notre code
-Python.  Les commentaires seront simplement ignorés par l'interpréteur
+Python. Les commentaires seront simplement ignorés par l'interpréteur
 Python lors de l'exécution du code.
 
 En Python, un commentaire est tout ce qui se trouve entre un caractère
 ``#`` et la fin de la ligne::
 
-    # poids in kilograms
-    poids = 65.5
+    # Code Morse du "S"
+    s = "..."
 
-    # taille in meters
-    taille = 1.75
+    # Code Morse du "O"
+    o = "---"
 
-    imc = poids / taille ** 2  # Calculer l'IMC
-    print("Votre IMC est :", imc)
+    aidez_moi = s + o + s # Code Morse pour "SOS"
+    print(aidez_moi)
 
 
 Les fonctions
 =============
 
-Notre programme est pas trop mal, mais si l'utilisateur-trice souhaite
-calculer son IMC, il ou elle aura besoin de modifier le code source du
-programme. Ce serait bien plus simple de lui permettre de saisir ces
-valeurs directement dans la console après le lancement du programme et
-de lui retourner ensuite son IMC.
+Notre programme n'est pas trop mal, mais si l'utilisateur-trice souhaite
+pouvoir envoyer plusieurs SOS, ou bien réutiliser ce bout de programme sans
+dupliquer trop de lignes, il va falloir empaqueter notre fonctionnalité
+dans ce qu'on appelle : une fonction.
 
-Pour ce faire, nous devons apprendre à utiliser les fonctions. La
-première fonction que nous allons apprendre à utiliser est la fonction
-:func:`help`: ::
+Une fonction, c'est un mini moteur, un groupe d'instructions qui prend des
+données en entrée, execute les instructions (calcule) en utilisant (ou pas) les
+données en entrée et renvoie (ou pas) un résultat en sortie.
 
-    >>> help
-    Type help() for interactive help, or help(object) for help about object.
+En Python on définie une fonction comme suit::
 
-La fonction :func:`help` est très sympa car elle nous explique
-comment nous devons l'utiliser. Elle peut aussi nous dire comment
-utiliser d'autres fonctions::
+    def nom_de_la_fonction(argument1, argument2):
+        # les instructions à executer
+        # les instructions peuvent utiliser les arguments
+        # pour retourner un résultat il faut utiliser le mot clef "return"
+        # Si la fonction ne retourne rien, "return" est optionel
+        return 42
 
-    >>> help(input)
-    Help on function input in module builtins:
-    <BLANKLINE>
-    input(...)
-        input([prompt]) -> string
-    <BLANKLINE>
-        Read a string from standard input.  The trailing newline is stripped.
-        If the user hits EOF (Unix: Ctl-D, Windows: Ctl-Z+Return), raise EOFError.
-        On Unix, GNU readline is used if enabled.  The prompt string, if given,
-        is printed without a trailing newline before reading.
-    <BLANKLINE>
 
-Nous utiliserons :func:`input` pour lire les données de
-l'utilisateur. Comme nous pouvons le voir dans la documentation, la
-fonction nous retourne une chaîne de caractères (string).
+Pour executer cette fonction (on dit "appeller" la fonction)::
 
-.. code::
+    nom_de_la_fonction(argument1, argument2)
+
+Pour récupérer la valeur de retour (résultat, sortie) de la fonction dans une
+variable::
+
+    ma_variable = nom_de_la_fonction(argument1, argument2)
+
+Notre première fonction va se contenter d'imprimer notre signal de détresse.
+
+On crée donc la fonction et on l'appelle à la fin du fichier::
+
+    def print_sos():
+        s = "..."
+        o = "---"
+        print(s+o+s)
+
+    print_sos()
+
+.. note:: On remarque qu'ici notre fonction ne prend aucun argument et ne
+    renvoie aucune valeur (pas de mot clef ``return``).
+
+J'ai maintenant une fonction toute simple que je peux appeler à plusieurs
+reprises juste en duplicant l'appelle ``print_sos()``.
+
+On peut aussi vouloir découper le signal et signifier que notre mot est terminé
+On va donc ajouter une nouvelle variable "stop" pour découper le mot et ainsi
+savoir quand le mot est terminé::
+
+    def print_sos():
+        s = "..."
+        o = "---"
+        stop = "|"
+        print (s+o+s+stop)
+
+    print_sos()
+
+On peut encore simplifier notre code en remarquant que ``s`` contient 3 points
+et ``o`` contient 3 tirets. Il se trouve qu'on peut dupliquer une chaine de
+caractères en utilisant la syntaxe suivante::
+
+    >>> "hello"*2
+    'hellohello'
+
+On peut donc obtenir ``"..."`` en faisant ``"." * 3``::
+
+    def print_sos():
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        print(s+o+s+stop)
+
+    print_sos()
+
+Si maintenant on veut afficher plusieurs SOS, on peut écrire autant de fois
+que nécessaire ``print_sos()`` à la fin du fichier. Mais les informaticien•ne•s
+sont flemmard•e•s et la machine est là pour nous éviter de refaire la même
+chose et faire le travail répétitif et ennuyeux.
+
+On a besoin de dire à la machine combien de fois on veut imprimer notre SOS.
+On va donc modifier la fonction et lui passer le nombre de fois que l'on veut
+imprimer le signal SOS en argument::
+
+    def print_sos(nb):
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        print((s+o+s+stop) * nb)
+
+    print_sos(3)
+
+Ce qui donne::
+
+    $ python morse.py
+    ...---...|...---...|...---...|
+
+Pour qu'on puisse mieux lire les différents SOS et visualiser la fin de la
+phrase on va lui ajouter un retour à la ligne (``\n``)::
+
+    def print_sos(nb):
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        print((s+o+s+stop+"\n") * nb)
+
+    print_sos(3)
+
+Ce qui donne lorsqu'on execute ``morse.py``::
+
+    $ python3.4 morse.py
+    ...---...|
+    ...---...|
+    ...---...|
+
+On a donc une fonction qui prend en entrée le nombre de fois que l'on veut
+emettre le signal SOS. Pour l'instant elle ne se contente que d'afficher.
+Si on veut rendre ce programme encore plus facile à utiliser, imaginons par
+exemple que nous ayons un robot qui transforme le . et le - en sons différents,
+ou une machine qui allume et éteigne une lampe plus ou moins longtemps.
+On peut vouloir que cette fonction retourne la chaine de caractère du message
+à transmettre sans l'afficher dans le terminal. On pourra ensuite mettre cette
+chaine dans une variable et la passer en argument à une autre fonction dont
+le rôle sera d'émettre du son ou d'allumer une lampe.
+On va donc demander à la fonction de retourner (via ``return``) le message
+morse et donc on va changer le nom de la fonction de ``print_sos`` à
+``emit_sos``::
+
+    def emit_sos(nb):
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        return (s+o+s+stop) * nb
+
+    emit_sos(5)
+
+Cette fois-ci lorsqu'on execute notre programme, plus rien n'est affiché.
+
+Mais rassurez-vous, on peut toujours vérifier que celà marche en modifiant la
+dernière ligne en::
+
+    print(emit_sos(5))
+
+En effet, :func:`emit_sos` retourne une chaine de caractère que :func:`print` va
+afficher.
+
+On a donc créé une fonction réutilisable, et que l'on peut greffer à d'autre
+comme par exemple emettre un son ::
+
+    play(emit_sos(5))
+
+ou encore allumer et éteindre un phare ::
+
+    flash(emit_sos(5))
+
+Mais avant de gérer les phares et cassez les oreilles des autres,
+nous allons plutôt interagir avec notre machine à sos et nous familiariser avec elle.
+
+Un peu d'interactivité avec l'utilisateur•trice serait le bienvenu, par exemple
+demander à l'utilisateur•trice de rentrer au clavier le nombre de fois qu'il
+faut afficher le SOS.
+
+Nous allons utiliser la fonction :func:`input` (fonctionne seulement avec
+Python 3, si vous utilisez Python 2 remplacez :func:`input` par
+:func:`raw_input`) pour ça.
+
+La fonction :func:`input` laisse l'utilisateur•trice taper un message (terminé
+par l'appuie sur la touche Entrée) puis retourne la chaine de caractère
+qui a été tapée::
 
     >>> input()
-    Yara a un chat
-    'Yara a un chat'
+    Bonjour a toutes et a tous
+    'Bonjour a toutes et a tous'
 
-Apprenons maintenant ce qu'"appeler une fonction" veut dire.
+Le résultat peut bien sûr être stoqué dans une variable afin de l'utiliser par
+la suite::
 
-Pour appeler une fonction, il faut utiliser ``()``, ce qui donne
-l'information à l'interpréteur Python qu'il doit appeler une fonction.
+    >>> message = input()
+    Ceci est un test
+    >>> print("Vous avez tape : " + message)
+    Vous avez tape : Ceci est un test
 
-Appeler une fonction c'est lancer le code de cette fonction. Si vous
-oubliez d'ajouter ``()`` après le nom de la fonction, la fonction ne
-sera pas appelée.
+Essayons maintenant de l'intégrer à notre machine à SOS::
 
-Dans cette situation, il n'y aura pas d'erreur car il est tout-à-fait
-possible de manipuler une fonction sans l'appeler.
+    def emit_sos(nb):
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        return (s+o+s+stop) * nb
 
-La plupart du temps une fonction **return** un résultat.
+    print("Entrez le nombre de SOS que vous voulez: ")
+    nb_sos = input()
+    print(emit_sos(nb_sos))
 
-Dans le cas de la :func:`input`, ce résultat est une chaîne de
-caractères, c'est pourquoi nous pouvons le manipuler de la même
-manière que nous avons manipulé les chaînes de caractères auparavant.
+Voici ce que le programme donne une fois executé::
 
-Par exemple nous pouvons donner un alias au résultat de la fonction
-``input()`` pour pouvoir réutiliser cette valeur par la suite:
-
-.. testsetup::
-
-    input.queue.append("Joanna")
-
-.. doctest::
-
-    >>> name = input()
-    Joanna
-    >>> name
-    'Joanna'
-    >>> print("Votre nom est :", name)
-    Votre nom est : Joanna
-
-Est-ce que ça suffit pour améliorer notre programme ?
-
-.. testsetup::
-
-    input.queue.append("60.5")
-
-.. doctest::
-
-    >>> w = input()
-    60.5
-    >>> w
-    '60.5'
-    >>> print(w + 3)
+    $ python morse.py
+    Entrez le nombre de SOS que vous voulez:
+    5
     Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    TypeError: Can't convert 'int' object to str implicitly
+      File "morse.py", line 9, in <module>
+        print(emit_sos(nb_sos))
+      File "morse.py", line 5, in emit_sos
+        return (s+o+s+stop) * nb
+    TypeError: can't multiply sequence by non-int of type 'str'
 
-Comme vous pouvez le voir, Python ne sait pas quel résultat nous
-souhaitons.  Il n'est pas possible d'additionner des chaînes de
-type (``str``) et des entiers de type (``int``). Python ne sait pas si
-nous parlons du nombre ``60.5`` ou de la chaîne de caractères
-``"60.5"``. Nous sommes les seuls à le savoir et nous devons donc
-ajouter ces informations à notre programme.
+Ceci est une erreur Python (on dit une exception).
+L'erreur vient du fait que la fonction :func:`input` retourne une chaine de
+caractères et non pas un nombre entier.
+En Python, ``"5"`` est différent de ``5``, le premier est une chaine de
+caractère et le deuxième est un entier::
 
+    >>> type("5")
+    <class 'str'>
+    >>> type(5)
+    <class 'int'>
 
-Voici deux nouvelles fonctions :
+.. note:: La fonction :func:`type` permet d'afficher le type d'une expression.
 
-    >>> help(int)  # doctest: +NORMALIZE_WHITESPACE
-    Help on class int in module builtins:
-    <BLANKLINE>
-    class int(object)
-     |  int(x=0) -> integer
-     |  int(x, base=10) -> integer
-     |
-     |  Convert a number or string to an integer, or return 0 if no arguments
-     |  are given.  If x is a number, return x.__int__().  For floating point
-     |  numbers, this truncates towards zero.
-     |
-     |  ...
+Pour convertir notre chaine de caractères en entier, nous allons utiliser la
+fonction :func:`int`::
 
-et
+    >>> a = "5"
+    >>> a
+    '5'
+    >>> int(a)
+    5
 
-    >>> help(float)  # doctest: +NORMALIZE_WHITESPACE
-    Help on class float in module builtins:
-    <BLANKLINE>
-    class float(object)
-     |  float(x) -> floating point number
-     |
-     |  Convert a string or number to a floating point number, if possible.
-     |
-     |  ...
+Voici le code corrigé::
 
-La fonction :func:`help` n'hésite pas à nous annoncer qu'en fait,
-:func:`int` and :func:`float` ne sont pas des fonctions, mais des
-classes (mais nous reviendrons là dessus dans la suite du tutoriel)
-ainsi que toutes les informations sur les nombreuses choses pour
-lesquelles nous pouvons les utiliser. Actuellement ce qui nous
-intéresse est simplement la fonctionnalité de base permettant de
-convertir une chaîne de caractères contenant un nombre sous la forme
-d'un nombre d'un type donné.
+    def emit_sos(nb):
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        return (s+o+s+stop) * nb
 
-Essayons :func:`int` et :func:`float`:
+    print("Entrez le nombre de SOS que vous voulez: ")
+    nb_sos = int(input())
+    print(emit_sos(nb_sos))
 
-    >>> int("0")
-    0
-    >>> int(" 63 ")
-    63
-    >>> int("60.5")
-    Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    ValueError: invalid literal for int() with base 10: '60.5'
-    >>> float("0")
-    0.0
-    >>> float(" 63 ")
-    63.0
-    >>> float("60.5")
-    60.5
+Une fois lancé::
 
+    $ python morse.py
+    Entrez le nombre de SOS que vous voulez:
+    5
+    ...---...|...---...|...---...|...---...|...---...|
 
-Avant d'utiliser ces nouvelles fonctions dans notre programme, prenons
-le temps de décrire comme il devrait fonctionner:
-
-1. Demander à l'utilisateur d'entrer sa taille.
-2. Lire la valeur de l'utilisateur et la stocker dans l'alias ``taille``.
-3. Convertir la valeur sous forme de chaîne de caractères en valeur décimale.
-4. Demander à l'utilisateur d'entrer son poids.
-5. Lire la valeur de l'utilisateur et la stocker dans l'alias ``poids``.
-6. Convertir la valeur sous forme de chaîne de caractères en valeur décimale.
-7. En utilisant ces valeurs calculer l'IMC et stocker sa valeur dans l'alias ``imc``.
-8. Afficher la valeur de l'IMC.
-
-Sans surprise, ces 8 points peuvent être transcrits en 8 lignes de code
-(lignes vides exclues):
-
-.. testsetup::
-
-    input.queue.append("1.75")
-    input.queue.append("65.5")
-
-.. testcode::
-
-    print("Entrez votre taille en mètres :")
-    taille = input()
-    taille = float(taille)
-
-    print("Entrez votre poids en kilogrammes :")
-    poids = input()
-    poids = float(poids)
-
-    imc = poids / taille ** 2  # Calculer IMC
-    print("Votre IMC est :", imc)
-
-Vous pouvez sauvegarder votre programme dans le fichier ``imc.py`` et lancer ``python imc.py``.
-Le résultat devrait ressembler à:
-
-.. testoutput::
-
-    Entrez votre taille en mètres :
-    1.75
-    Entrez votre poids en kilogrammes :
-    65.5
-    Votre IMC est : 21.387755102040817
-
-En conclusion, pour appeler une fonction, nous avons besoin de
-connaître son nom (nous en connaissons maintenant quelques-unes :
-:func:`print`, :func:`help`, :func:`input`, :func:`int`, :func:`float`
-and :func:`quit`) et ce qu'elles attendent de nous (ce qui s'appelle
-la liste des arguments de la fonction).
-
-Entrer uniquement le nom de la fonction ne l'appelle pas. Mais ça va
-nous retourner qu'il s'agit bien d'une fonction.
-
-    >>> input  # doctest: +SKIP
-    <built-in function input>
-
-.. We skip the test above because we can't mock input.__repr__ :(
-
-Afin d'appeler une fonction, nous devons ajouter des parenthèses après son nom:
-
-    >>> input()  # doctest: +SKIP
-
-Ainsi la fonction sera exécutée par Python.
-
-Les arguments de la fonction sont donnés entre les parenthèses et s'il
-y en a plus d'un on les sépare par une virgule:
-
-    >>> int("FF", 16)
-    255
 
 
 Les conditions
 ==============
+En avant vers notre prochaine problématique.
+Maintenant on a une machine à émettre des sos autant de fois qu'on le désire.
+Mais il faut faire attention, trop de sos pour faire imploser le bateau
+ou faire sauter l'élecricité ou encore simplement rendre fou le capitaine.
 
-En avant vers notre prochaine problématique. Nous voulons que notre programme affiche les informations relatives à notre IMC une fois ce dernier calculé.
+On va donc prévenir le lanceur de SOS s'il dépasse la limite autorisée.
+On va modifier notre fichier morse.py pour ajouter des précautions d'usage::
 
-Pour ce faire nous allons utiliser la table de classification ci-dessous:
+    def emit_sos(nb):
+        s = "." * 3
+        o = "-" * 3
+        stop = "|"
+        return (s+o+s+stop) * nb
 
-=====================   ==================
-   IMC                    Classification
-=====================   ==================
- < 18,5                      Maigreur
- 18,5 – 25              Corpulence normale
- ≥ 25,0                      Surpoids
-=====================   ==================
+    print("Entrez le nombre de SOS que vous voulez: ")
 
-Nous allons utiliser le mot clé de condition :keyword:`if`. Il va nous
-permettre de choisir les lignes du programme à exécuter en fonction
-d'une condition donnée:
-
-
-.. testsetup::
-
-    input.queue.append("1.75")
-    input.queue.append("65.5")
-
-.. testcode::
-
-    print("Entrez votre taille en mètres ::")
-    taille = input()
-    taille = float(taille)
-
-    print("Entrez votre poids en kilogrammes :")
-    poids = input()
-    poids = float(poids)
-
-    imc = poids / taille ** 2  # Calculer l'IMC
-
-    if imc < 18.5:
-        print("Maigreur")
-    elif imc < 25.0:
-        print("Corpulence normale")
+    nb_sos = int(input())
+    #Et maintenant nous allons vérifier que l'utilisateur n'abuse pas en nombre de sos
+    #si alors
+    if nb_sos == 0:
+        print("Pas SOS pour toi donc.")
+    #ou si alors
+    elif nb_sos > 10:
+        print("Trop de SOS! Stoppez ca s'il vous plait! Vous allez casser la machine!")
+    # sinon alors
     else:
-        print("Surpoids")
+        print(emit_sos(nb_sos))
 
-.. testoutput::
+Maintenant l'utilisateur a peut être VRAIMENT un problème, il faut quand même envoyer un signal.
+On va donc quand même envoyer le signal mais en respectant la limite::
 
-    Entrez votre taille en mètres ::
-    1.75
-    Entrez votre poids en kilogrammes :
-    65.5
-    Corpulence normale
+    #si alors
+    if nb_sos == 0:
+        print("Pas SOS pour toi donc.")
+    #ou si alors
+    elif nb_sos > 10:
+        print("Trop de SOS! Stoppez ca s'il vous plait! Vous allez casser la machine!")
+        print(emit(10))
+    # sinon alors
+    else:
+        print(emit_sos(nb_sos))
+
+L'utilisateur de la machine à SOS maintenant qu'il est prevenu peu informer de l'urgence de sa situtation
+en fonction du nombre de SOS qu'il envoie:
+
+=====================   ==================    ==================
+   Nombre de SOS           Type de Signal		Signification
+=====================   ==================    ==================
+ < 5                    Avarie mineure 	      on rentre au port rapidemment
+ 5 – 12              	Avarie moyenne 	      patrouille de reconnaissance demandée
+ ≥ 12                   Avarie majeure 	      envoi immédiat des forces d'interventions
+=====================   ==================    ==================
+
+Exercice : Ecrire une fonction qui va afficher le type de signal en fonction du nombre de SOS envoyé
+(n'oubliez pas de prendre en compte s'il n'y a pas de signal)
+
 
 Conditions : vrai ou faux
 -------------------------
@@ -737,13 +765,13 @@ Et si ce n'est pas le cas ?
 On pourrait se débrouiller pour écrire un programme en utilisant
 uniquement des :keyword:`if` ::
 
-    if imc < 18.5:
-        print("Maigreur")
-    if imc >= 18.5:
-        if imc < 25.0:
-            print("Corpulence normale")
-    if imc >= 25.0:
-        print("Surpoids")
+    if nb_sos <= 5:
+        print("Avarie Mineure")
+    if nb_sos > 5:
+        if nb_sos < 12:
+            print("Avarie Moyenne")
+    if nb_sos >= 12:
+        print("Avarie Majeure")
 
 Mais en fait, on peut aussi utiliser :keyword:`else` et
 :keyword:`elif`, afin de ne pas avoir à répéter les conditions
@@ -755,17 +783,17 @@ En utilisant :keyword:`else` , nous avons la garantie que les
 instructions données seront exécutées seulement si les instructions
 données après le :keyword:`if` n'ont pas été exécutées::
 
-    if imc < 18.5:
-        print("Maigreur")
+    if nb_sos < 5:
+        print("Avarie Mineure")
     else:
         # Si votre programme exécute ces instructions alors vous êtes
-        # certains que imc >= 18.5 !
-        if imc < 25.0:
-            print("Corpulence normale")
+        # certains que nb_sos >= 5 !
+        if nb_sos < 12:
+            print("Avarie Moyenne")
         else:
-            # Ici vous pouvez être certains que imc >= 25.0
+            # Ici vous pouvez être certains que nb_sos >= 25.0
             # nous n'avons donc pas à le vérifier.
-            print("Surpoids")
+            print("Avarie Majeure")
 
 Regardez bien attentivement la manière dont le code est indenté. À
 chaque utilisation de :keyword:`else`, un niveau d'indentation a été
@@ -794,29 +822,16 @@ condition.
         print("supérieur ou égal à trois")
 
 
-Le formatage des chaînes de caractères
-======================================
+.. _lien-tuples:
 
-La dernière amélioration, que nous avions mentionnée ci-dessus, était
-le trop grand nombre de chiffres après la virgule de notre IMC.
-
-Des trois problèmes que nous avions identifiés, celui-ci est le plus
-simple à résoudre.
-
-C'est d'ailleurs pour ça que nous l'avions gardé pour la fin de notre
-aventure de calculateur d'IMC.
-
+Tuples
+======
 Nous savons déjà que nous pouvons concaténer des chaînes de
 caractères, les multiplier par des nombres, vous allez voir qu'on peut
 aussi les formater. Tout d'abord, nous avons besoin de découvrir un nouveau type de données (en plus des ``strings`` et des nombres, ``int`` et ``float``, que nous connaissons déjà).
 
 
-.. _imc-tuples:
-
-Tuples
-------
-
-Rappelez-vous, je vous disais que nous ne pouvions pas utiliser les virgules dans les nombres car nous en aurions besoin par la suite pour définir les tuples. Nous y voici :
+Rappelez-vous, je vous disais que nous ne pouvions pas utiliser les virgules dans les nombres car nous en aurions besoin par la suite pour définir les tuples. Nous y voici
 
     >>> 1, 2, 3
     (1, 2, 3)
@@ -859,126 +874,6 @@ positions (en commençant à zéro):
     >>> p[1]  # deuxième valeur
     15
 
-
-Formater
---------
-
-Pour en revenir à notre programme, actuellement le résultat est affiché sur une seule ligne.
-
-À présent, nous souhaitons afficher notre IMC comme un nombre ainsi
-que l'information de la table de classification correspondant à la
-tranche en question, comme cela :
-
-::
-
-    Votre IMC est de 21.39 (Corpulence normale)
-
-Modifiez votre programme actuel pour que la valeur de l'IMC soit disponible dans l'alias ``imc`` et l'information de la table de classification correspondante dans l'alias ``category``. Ensuite utilisez la fonction :func:`print` pour obtenir le résultat souhaité:
-
-.. testsetup::
-
-    imc = 21.387755102040817
-    category = "normal poids"
-
-.. testcode::
-
-    print("Votre IMC est de", imc, "(" + category + ")")
-
-.. testoutput::
-    :hide:
-
-    Votre IMC est de 21.387755102040817 (Corpulence Normale)
-
-Vous y êtes presque…. Nous avons encore un peu trop de chiffres après
-la virgule. Nous aurions également un problème si nous souhaitions
-stocker la chaîne de caractères contenant le résultat dans un alias et
-ce parce que nous utilisons la fonction :func:`print` pour
-concaténer les éléments.
-
-Heureusement pour nous, il y a une meilleure solution :
-
-    >>> imc = 21.387755102040817
-    >>> category = "Corpulence normale"
-    >>> result = "Votre IMC est de %f (%s)" % (imc, category)
-    >>> result
-    'Votre IMC est de 21.387755 (Corpulence normale)'
-    >>> print(result)
-    Votre IMC est de 21.387755 (Corpulence normale)
-
-Ce que nous voyons, c'est que nous avons une chaîne de caractères liée à un tuple par un ``%``.
-Cette chaîne de caractères est un patron qui est complété avec les valeurs contenues dans le tuple.
-
-Les espaces blancs à remplir, sont eux aussi annotés avec un pourcent (``%``).
-
-La lettre qui suit définit le type de la valeur qui doit être
-insérée. Les entiers sont représentés par la lettre ``i`` pour
-**integer** (il est également possible d'utiliser la lettre ``d``
-comme **decimal**), les chaînes de caractères sont représentées par la
-lettre ``s`` comme **string** et les valeurs décimales flottantes sont
-représentées par la lettre ``f`` comme **float**:
-
-    >>> "String: %s, Numbers: %d %f" % ("Ala", 10, 3.1415)
-    'String: Ala, Numbers: 10 3.141500'
-
-Ici au lieu de neuf décimales nous n'en avons plus que six, mais le
-formatage a l'avantage de nous permettre d'avoir encore plus de
-contrôle en ajoutant des informations complémentaires entre le ``%``
-et le ``f`` ; par exemple pour ne faire apparaître que deux chiffres :
-
-
-    >>> "%.2f" % 3.1415
-    '3.14'
-    >>> "%.2f" % 21.387755102040817
-    '21.39'
-
-Il existe beaucoup d'options de formatage, nous n'allons donc pas toutes
-les lister ici. L'une des plus utiles est celle permettant d'aligner
-l'affichage sur un nombre de caractères donné :
-
-.. testcode::
-
-    WIDTH = 26
-
-    print("-" * WIDTH)
-    print("| Prénom et nom |  Poids |")
-    print("-" * WIDTH)
-    print("| %13s | %6.2f |" % ("Lucas", 67.5))
-    print("| %13s | %6.2f |" % ("Camille", 123))
-    print("-" * WIDTH)
-
-.. testoutput::
-
-    --------------------------
-    | Prénom et nom |  Poids |
-    --------------------------
-    |         Lucas |  67.50 |
-    |       Camille | 123.00 |
-    --------------------------
-
-Nous pouvons aussi aligner les chaînes de caractères à gauche en
-prefixant le nombre de caractères par un ``-`` :
-
-.. testcode::
-
-    WIDTH = 26
-
-    print("-" * WIDTH)
-    print("| Prénom et nom |  Poids |")
-    print("-" * WIDTH)
-    print("| %-13s | %6.2f |" % ("Lucas", 67.5))
-    print("| %-13s | %6.2f |" % ("Camille", 123))
-    print("-" * WIDTH)
-
-.. testoutput::
-
-    --------------------------
-    | Prénom et nom |  Poids |
-    --------------------------
-    | Lucas         |  67.50 |
-    | Camille       | 123.00 |
-    --------------------------
-
-Je vous laisse chercher comment faire pour aligner au centre :).
 
 
 En résumé
